@@ -320,26 +320,9 @@ plugin.events.on("onChatMessage", (data) => {
 plugin.events.on('allCardsReady', () => {
     allCards = window.allCards
     plugin.events.on("translation:loaded", (data) => {
-        let RarityToColor = {
-            BASE: "gray",
-            COMMON: "PATIENCE",
-            RARE: "INTEGRITY",
-            EPIC: "PERSEVERANCE",
-            LEGENDARY: "JUSTICE",
-            DETERMINATION: "DETERMINATION",
-            TOKEN: "KINDNESS"
-        };
-
         allCards.forEach(card => {
-            var soul = "PATIENCE";
+            var soul = card.soul?.name || card.rarity;
             var alias = card.name;
-
-            if (card["soul"] !== undefined) {
-                soul = card["soul"]["name"];
-            }
-            else {
-                soul = RarityToColor[card.rarity];
-            }
 
             if (cardAliases[card.fixedId.toString()] !== undefined) {
                 alias = cardAliases[card.fixedId.toString()];
